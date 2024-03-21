@@ -1,0 +1,188 @@
+.rest {
+	height: 673px;
+	&__wrapper {
+		// padding-top: 80px;
+		padding-top: 80px;
+		width: 1007px;
+		height: 100%;
+		margin: 0 auto;
+	}
+
+	&__bg {
+		position: absolute;
+	}
+
+	.booking {
+		margin-top: 0;
+	}
+
+	.booking__bg {
+		display: none;
+	}
+
+	.booking__form {
+		row-gap: 56px;
+	}
+
+	.title {
+		padding-left: 40px;
+	}
+}
+
+@media (max-width: 1386px) {
+	.rest {
+		height: 541px;
+		.container {
+			height: 100%;
+			position: relative;
+		}
+		&__bg {
+			svg {
+				display: none;
+			}
+
+			background: url('/images/bg/rest-1000.svg');
+			width: 100%;
+			height: 100%;
+			background-position: 0 -50px;
+			background-repeat: no-repeat;
+		}
+
+		&__wrapper {
+			padding-top: 56px;
+			width: 100%;
+		}
+	}
+}
+@media (max-width: 980px) {
+	.rest {
+		height: 591px;
+		.container {
+			height: 100%;
+			position: relative;
+		}
+		&__bg {
+			svg {
+				display: none;
+			}
+
+			background: url('/images/bg/rest-768.svg');
+			width: 100%;
+			height: 100%;
+			background-position: 0 -131px;
+			background-repeat: no-repeat;
+		}
+
+		&__wrapper {
+			padding-top: 56px;
+			width: 100%;
+		}
+
+		.booking__form {
+			row-gap: 40px;
+		}
+
+		.booking__socials {
+			grid-row: 4/5;
+			grid-column: 2/3;
+			justify-self: flex-end;
+
+			&-text {
+				text-align: end;
+			}
+
+			&-items {
+				align-self: flex-end;
+			}
+		}
+
+		.button {
+			grid-column: 1/3;
+			justify-self: center;
+		}
+	}
+}
+@media (max-width: 748px) {
+	.rest {
+		height: 663px;
+		.container {
+			height: 100%;
+			position: relative;
+		}
+		&__bg {
+			background: url('/images/bg/rest-480.svg');
+			background-position: 0 -194px;
+			background-repeat: no-repeat;
+		}
+
+		&__wrapper {
+			padding-top: 40px;
+		}
+
+		.booking__form {
+			height: 100%;
+			row-gap: 24px;
+			grid-template-columns: 1fr;
+		}
+
+		.booking__socials {
+			margin-top: 12px;
+			grid-row: 6/7;
+			grid-column: 1/2;
+			justify-self: flex-start;
+
+			&-text {
+				text-align: start;
+			}
+
+			&-items {
+				align-self: flex-start;
+				gap: 20px;
+			}
+		}
+
+		.button {
+			grid-column: 1/3;
+			justify-self: flex-start;
+		}
+
+		.title {
+			padding-left: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 460px) {
+	.rest {
+		height: fit-content;
+		&__bg {
+			width: calc(100% - 20px);
+			background: #3b3b3b;
+			border-radius: 0 0 16px 16px;
+		}
+
+		.booking__form {
+			margin-top: 32px;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			padding: 10px;
+		}
+
+		.booking {
+			&__socials {
+				&-text {
+					text-align: end;
+				}
+
+				&-items {
+					align-self: flex-end;
+				}
+			}
+		}
+
+		&__wrapper {
+			padding-bottom: 40px;
+		}
+	}
+}

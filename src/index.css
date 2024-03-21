@@ -1,13 +1,54 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* @import 'blocks/request'; */
+@import 'styles/base/fonts.scss';
+@import 'styles/media.scss';
+@import 'styles/base/variables.scss';
+@import 'styles/base/text.scss';
+
+* {
+	color: var(--text-color);
+	font-family: Akrobat;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+	margin: 0 auto;
+}
+
+body {
+	background-color: var(--bg-color);
+}
+
+ul {
+	list-style-type: none;
+}
+
+/* .overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 20;
+} */
+
+html {
+	scroll-behavior: smooth; /* Делает прокрутку плавной */
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	box-shadow: 0 0 0 30px #3b3b3b inset !important;
+}
+
+input:-webkit-autofill {
+	-webkit-text-fill-color: var(--svetlyy) !important;
 }

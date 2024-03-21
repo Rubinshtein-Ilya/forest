@@ -1,0 +1,189 @@
+.sale {
+	height: 756px;
+	margin-top: -200px;
+
+	.container {
+		height: 100%;
+		width: 100%;
+	}
+
+	&__wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		padding: 100px 40px;
+	}
+
+	&__bg {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		display: none;
+
+		&-1366 {
+			display: inherit;
+		}
+	}
+
+	&__subtitle {
+		margin-top: 22px;
+		max-width: 444px;
+		z-index: 2;
+		position: relative;
+		font-family: var(--second-family);
+		font-weight: 300;
+		font-size: 18px;
+		line-height: 130%;
+		text-transform: uppercase;
+		color: var(--temno--korichnevyy);
+
+		span {
+			font-family: var(--second-family);
+			font-weight: 300;
+			font-size: 20px;
+			line-height: 130%;
+			text-transform: uppercase;
+			color: var(--svetlyy);
+		}
+	}
+}
+
+@media (max-width: 1386px) {
+	.sale {
+		margin-top: -137px;
+		&__bg {
+			&-1366 {
+				display: none;
+			}
+
+			&-1000 {
+				display: inherit;
+			}
+		}
+
+		&__wrapper {
+			padding-top: 430px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		&__subtitle {
+			color: var(--svetlyy);
+		}
+	}
+}
+@media (max-width: 980px) {
+	.sale {
+		margin-top: -114px;
+		&__bg {
+			&-1000 {
+				display: none;
+			}
+
+			&-768 {
+				display: inherit;
+			}
+		}
+
+		&__wrapper {
+			padding-top: 227px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		&__subtitle {
+			color: var(--temno--korichnevyy);
+
+			span {
+				color: var(--temno--korichnevyy);
+			}
+		}
+	}
+}
+@media (max-width: 748px) {
+	.sale {
+		height: auto;
+		margin-top: -76px;
+		&__bg {
+			&-768 {
+				display: none;
+			}
+
+			&-480 {
+				display: inherit;
+			}
+		}
+
+		&__wrapper {
+			padding-top: 155px;
+			padding-left: 20px;
+		}
+
+		.title {
+			color: var(--temno--korichnevyy);
+		}
+
+		&__subtitle {
+			font-family: var(--font-family);
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 130%;
+			color: var(--svetlyy);
+			max-width: 263px;
+			text-transform: inherit;
+
+			span {
+				font-family: var(--font-family);
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 130%;
+				color: var(--svetlyy);
+				text-transform: inherit;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 460px) {
+	.sale {
+		height: 269px;
+		margin-top: 20px;
+		&__bg {
+			width: 100%;
+			min-height: 269px;
+			&-480 {
+				display: none;
+			}
+
+			&-320 {
+				background: url('/images/coffee.jpg');
+				width: 100%;
+				height: 100%;
+				border-radius: 12px;
+				background-size: cover;
+				display: inherit;
+			}
+		}
+
+		&__wrapper {
+			padding: 20px 20px 0 20px;
+		}
+
+		.title {
+			margin-top: 0;
+		}
+
+		&__subtitle {
+			margin-top: 4px;
+			font-size: 20px;
+
+			span {
+				font-size: 20px;
+			}
+		}
+	}
+}

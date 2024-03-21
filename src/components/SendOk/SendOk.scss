@@ -1,0 +1,100 @@
+.send-ok {
+	position: fixed;
+	top: 50%; /* Разместить блок на половине высоты экрана */
+	left: 50%; /* Разместить блок на половине ширины экрана */
+	transform: translate(
+		-50%,
+		-50%
+	); /* Центрировать блок относительно его собственных размеров */
+	z-index: 6;
+	background: var(--korichnevyy);
+	border-radius: 24px;
+	padding: 80px 40px;
+	display: flex;
+	gap: 40px;
+	width: 918px;
+
+	.logo {
+		width: 210px;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	&__descriptions {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 24px;
+		&-title {
+			font-family: var(--second-family);
+			font-weight: 400;
+			font-size: 20px;
+			text-transform: uppercase;
+			color: var(--svetlyy);
+		}
+		&-text {
+			font-family: var(--font-family);
+			font-weight: 200;
+			font-size: 18px;
+			color: var(--svetlyy);
+		}
+
+		&-socials {
+			display: flex;
+			gap: 24px;
+		}
+	}
+}
+
+@media (max-width: 1386px) {
+	.send-ok {
+		width: 918px;
+	}
+}
+@media (max-width: 980px) {
+	.send-ok {
+		width: 728px;
+	}
+}
+@media (max-width: 748px) {
+	.send-ok {
+		width: 480px;
+		flex-direction: column;
+		padding: 40px 20px;
+
+		.logo {
+			align-self: center;
+		}
+
+		&__descriptions {
+			&-title {
+				font-family: var(--font-family);
+				font-weight: 600;
+				font-size: 20px;
+				color: var(--svetlyy);
+				text-transform: none;
+			}
+
+			&-text {
+				font-size: 16px;
+			}
+		}
+	}
+}
+.modal__close{
+	font-size: 60px;
+    color: white;
+    position: fixed;
+    top: 3px;
+    cursor: pointer;
+    right: 30px;
+	font-weight: 300;
+}
+
+@media screen and (max-width: 460px) {
+	.send-ok {
+		width: 90%;
+	}
+}

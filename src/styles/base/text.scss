@@ -1,0 +1,33 @@
+.text {
+	color: var(--text-white);
+	font-family: Akrobat;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 200;
+	line-height: 100%; /* 23.4px */
+
+	&:nth-child(n + 2) {
+		line-height: 130%;
+	}
+
+	&_black {
+		color: rgb(35, 34, 33);
+		font-family: Akrobat;
+		font-size: 18px;
+		font-weight: 300;
+		letter-spacing: 0%;
+	}
+}
+
+@media (max-width: 1386px) {
+}
+@media (max-width: 980px) {
+}
+@media (max-width: 748px) {
+	.text {
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 460px) {
+}

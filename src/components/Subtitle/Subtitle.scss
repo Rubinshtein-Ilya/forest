@@ -1,0 +1,33 @@
+.subtitle {
+	color: var(--text-white);
+	font-family: Anticva;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 100%; /* 26px */
+	text-transform: uppercase;
+	line-height: 130%;
+
+	&:nth-child(n + 2) {
+		line-height: 130%;
+	}
+
+	&_black {
+		font-weight: 400;
+		font-size: 20px;
+		color: var(--temno--korichnevyy);
+	}
+}
+
+@media (max-width: 1386px) {
+}
+@media (max-width: 980px) {
+}
+@media (max-width: 748px) {
+	.subtitle {
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 460px) {
+}
