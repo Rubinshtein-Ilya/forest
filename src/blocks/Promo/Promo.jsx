@@ -116,8 +116,8 @@ const Promo = () => {
 								</div>
 								<div className='promo__corner-two'>
 									<svg
-										width='29'
-										height='30'
+										width='30'
+										height='20'
 										viewBox='0 0 12 11'
 										fill='none'
 										xmlns='http://www.w3.org/2000/svg'

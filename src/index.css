@@ -23,6 +23,7 @@
 
 body {
 	background-color: var(--bg-color);
+	overflow-x: hidden;
 }
 
 ul {
@@ -41,6 +42,7 @@ ul {
 
 html {
 	scroll-behavior: smooth; /* Делает прокрутку плавной */
+	overflow-x: hidden;
 }
 
 input:-webkit-autofill,

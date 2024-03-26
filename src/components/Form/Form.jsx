@@ -88,13 +88,13 @@ const Form = () => {
 			setIsSubmitted(true)
 			setTimeout(() => {
 				setIsSubmitted(false)
-			}, 4000) // 120000 миллисекунд = 2 минуты
+			}, 10000) // 120000 миллисекунд = 2 минуты
 		} catch (error) {
 			console.error('Ошибка отправки сообщения:', error)
 			setIsErrorSubmitted(true)
 			setTimeout(() => {
 				setIsErrorSubmitted(false)
-			}, 4000)
+			}, 10000)
 		}
 	}
 
@@ -111,6 +111,7 @@ const Form = () => {
 				label: yup.string(),
 			}),
 			textarea: yup.string().max(30, 'Максимум 30 символов'),
+			email: yup.string().required('Обязательно для ввода'),
 		})
 		.required()
 
@@ -127,6 +128,7 @@ const Form = () => {
 			firstName: '',
 			phone: '',
 			guests: '', // Добавляем значение по умолчанию для текстовой области
+			email: '',
 		},
 		resolver: yupResolver(schema),
 	})
@@ -134,6 +136,8 @@ const Form = () => {
 	const firstNameValue = watch('firstName')
 	const phoneValue = watch('phone')
 	const selectValue = watch('select')
+	const emailValue = watch('email')
+
 
 	const [hasMounted, setHasMounted] = useState(false)
 
@@ -167,25 +171,32 @@ const Form = () => {
 					{errors.firstName && (
 						<img className='error-icon' src={errorImage} alt='error' />
 					)}
+					{ firstNameValue.length > 0 ?(
+									<div className='booking__input-arrow'>
+										<img src="/images/pen.png" alt="pen" />
+								   </div>): null
+									}
 				</div>
 
 				<Controller
-					name='phone'
+					name={!isEmail? 'phone': 'email'}
+					// name= 'phone'
 					control={control}
 					render={({ field }) => (
 						
 						<div className='input__wrapper'>
+							{!isEmail && (
 							<IMaskInput
 								mask={showPhoneMask ? '+{7} (000) 000-00-00' : ''}
 								definitions={{
 									0: /[0-9]/,
 								}}
 								
-								placeholder={!isEmail? (isFocused ? '+7 (___) ___-__-__' : 'Телефон*'): (isFocused ? '' : 'Email*')}
-								
-								
-								value={!isEmail? field.value: ''}
-								onAccept={value => field.onChange(value)}
+								placeholder={isFocused ? '+7 (___) ___-__-__' : 'Телефон*'}
+								onAccept={value => {
+									field.onChange(value)
+									console.log(value)
+								}}
 								inputRef={input => {
 									field.ref(input)
 									if (errors.phone) {
@@ -194,7 +205,7 @@ const Form = () => {
 								}}
 								className={`input-form input__phone-white ${addPhoneClass}`}
 								onFocus={() => {
-									setShowPhoneMask(!isEmail)
+									setShowPhoneMask(true)
 									handleFocus()
 									console.log(field)
 									// errors.phone
@@ -209,12 +220,41 @@ const Form = () => {
 										: handlePhoneClassChange()
 								}}
 								aria-invalid={errors.phone ? 'true' : 'false'}
-							/>
-							{errors.phone ? (
+							/>)}
+							{isEmail && (
+								<input
+									{...register('email')}
+									aria-invalid={errors.email ? 'true' : 'false'}
+									placeholder='Email*'
+									className={`input-form ${addNameClass}`}
+									// onFocus={
+									// 	errors.firstName ? removeNameClassChange : handleNameClassChange
+									// }
+									onBlur={() => {
+										errors.email || firstNameValue.length < 2
+											? removeNameClassChange()
+											: handleNameClassChange()
+									}}
+									// onChange={errors.firstName ? removeClassChange : handleClassChange}
+								/>
+								)}
+							{errors.phone || errors.email ? (
 								<img className='error-icon' src={errorImage} alt='error' />
 							) : (
 								<img />
 							)}
+							
+							{isEmail && emailValue.length > 0 ?(
+								<div className='booking__input-arrow'>
+									<img src="/images/pen.png" alt="pen" />
+								</div>): null
+							}
+							{!isEmail && phoneValue.length > 1 ?(
+								<div className='booking__input-arrow'>
+									<img src="/images/pen.png" alt="pen" />
+								</div>): null
+							}
+							
 						</div>
 					)}
 				/>

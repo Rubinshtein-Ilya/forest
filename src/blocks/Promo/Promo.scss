@@ -10,8 +10,8 @@
 
 		overflow: hidden;
 		position: absolute;
-		bottom: -5%;
-		left: 100%;
+		bottom: -3%;
+		left: 96%;
 	}
 
 	&__wrapper {
@@ -195,6 +195,12 @@
 		&__geo-coordinates {
 			font-size: 16px;
 		}
+	}
+	.promo__corner-two {
+		overflow: hidden;
+		position: absolute;
+		bottom: -4%;
+		left: 94%;
 	}
 }
 

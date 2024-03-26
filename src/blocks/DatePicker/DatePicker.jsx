@@ -24,7 +24,8 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
 				'is-future-date',
 				'Дата въезда не может быть в прошлом',
 				function (value) {
-					const startDate = parse(value, 'dd-MM-yyyy', new Date())
+					
+					const startDate = parse(value, 'dd-MM-yy', new Date())
 					return isValid(startDate) && startDate >= new Date()
 				}
 			),
@@ -42,8 +43,9 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
 		const [start, end] = dates
 		setStartDate(start)
 		setEndDate(end)
-		setValue('startDate', start ? format(start, 'dd-MM-yyyy') : null)
-		setValue('endDate', end ? format(end, 'dd-MM-yyyy') : null)
+		
+		setValue('startDate', start ? format(start, 'dd-MM-yy') : null)
+		setValue('endDate', end ? format(end, 'dd-MM-yy') : null)
 		updateFormattedDates(start, end)
 	}
 
@@ -104,10 +106,10 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
 	const updateFormattedDates = (startDate, endDate) => {
 		clearErrors()
 		if (startDate && endDate) {
-			const formattedStartDate = format(startDate, 'dd MMM yyyy г.', {
+			const formattedStartDate = format(startDate, 'dd MMM yy г.', {
 				locale: ru,
 			})
-			const formattedEndDate = format(endDate, 'dd MMM yyyy г.', { locale: ru })
+			const formattedEndDate = format(endDate, 'dd MMM yy г.', { locale: ru })
 			setStartFormattedDate(formattedStartDate)
 			setEndFormattedDate(formattedEndDate)
 		} else {
@@ -140,24 +142,48 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
 								<label>Прибытие</label>
 								<IMaskInput
 									autoFocus
-									mask='00-00-0000'
+									mask='00-00-00'
 									value={field.value || ''}
+									
 									placeholder='Укажите дату'
+									
 									aria-invalid={errors.startDate ? 'true' : 'false'}
 									onAccept={value => {
-										const date = parse(value, 'dd-MM-yyyy', new Date())
-										if (!isNaN(date) && date > new Date()) {
+										
+										// const date = parse(value, 'dd-MM', new Date())
+										
+										// if (!isNaN(date) && date > new Date()) {
+										// 	console.log(date)
+										// 	setStartDate(date)
+										// 	setValue('startDate', format(date, 'dd-MM-yy'))
+										// 	clearErrors('startDate')
+										// 	setStartFormattedDate(
+										// 		format(startDate, 'dd MMM yy г.', {
+										// 			locale: ru,
+										// 		})
+										// 	)
+										// }
+
+										const date = parse(value, 'dd-MM', new Date())
+										
+										if (!isNaN(date)) {
+											
 											setStartDate(date)
-											setValue('startDate', format(date, 'dd-MM-yyyy'))
+											setValue('startDate', format(date, 'dd-MM-yy'))
+											console.log(errors)
 											clearErrors('startDate')
 											setStartFormattedDate(
-												format(startDate, 'dd MMM yyyy г.', {
+												format(date, 'dd MMM yy г.', {
 													locale: ru,
 												})
 											)
 										}
-										console.log(errors)
+										
+										
+										
 									}}
+									
+									
 									style={{ border: 'none' }}
 									className='date-picker__input'
 								/>
@@ -179,19 +205,22 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
 							<div className='date-picker__input-end'>
 								<label>Выезд</label>
 								<IMaskInput
-									mask='00-00-0000'
+									mask='00-00-00'
 									aria-invalid={errors.endDate ? 'true' : 'false'}
 									value={field.value || ''}
 									placeholder='Укажите дату'
 									onAccept={value => {
-										const date = parse(value, 'dd-MM-yyyy', new Date())
+										
+										const date = parse(value, 'dd-MM', new Date())
+										
 										if (!isNaN(date) && date > startDate) {
+											
 											setEndDate(date)
-											setValue('endDate', format(date, 'dd-MM-yyyy'))
+											setValue('endDate', format(date, 'dd-MM-yy'))
 											console.log(errors)
 											clearErrors('endDate')
 											setEndFormattedDate(
-												format(date, 'dd MMM yyyy г.', {
+												format(date, 'dd MMM yy г.', {
 													locale: ru,
 												})
 											)

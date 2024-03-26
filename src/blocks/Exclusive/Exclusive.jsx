@@ -20,14 +20,17 @@ const Exclusive = (props) => {
 								<div className='exclusive__image'>
 									<img src={exclusiveImage1} alt='exclusive' />
 								</div>
-								<div className='exclusive__title'>Оформление фуршета</div>
-								<p className='exclusive__text'>
-									Мы создаем атмосферу изысканности и элегантности благодаря
-									нашему искусству оформления фуршета. <br></br>
-									<br></br>
-									Каждая деталь заботливо продумана, чтобы ваше мероприятие
-									оставило незабываемые впечатления и вызвало восторг у гостей.
-								</p>
+								{/* <div className="exclusive__content"> */}
+									<div className='exclusive__title'>Оформление фуршета</div>
+									<p className='exclusive__text'>
+										Мы создаем атмосферу изысканности и элегантности благодаря
+										нашему искусству оформления фуршета. <br></br>
+										<br></br>
+										Каждая деталь заботливо продумана, чтобы ваше мероприятие
+										оставило незабываемые впечатления и вызвало восторг у гостей.
+									</p>
+								{/* </div> */}
+								
 							</div>
 							<div className='exclusive__item'>
 								<div className='exclusive__image'>

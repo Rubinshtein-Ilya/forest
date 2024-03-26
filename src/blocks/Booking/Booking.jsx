@@ -133,11 +133,11 @@ const Booking = () => {
 		setInitialStartDate(data.startDate)
 		setInitialEndDate(data.endDate)
 
-		const startDay = format(data.startDate, 'dd MMM yyyy г.', { locale: ru })
-		const endDay = format(data.endDate, 'dd MMM yyyy г.', { locale: ru })
+		const startDay = format(data.startDate, 'dd MMM yy г.', { locale: ru })
+		const endDay = format(data.endDate, 'dd MMM yy г.', { locale: ru })
 
-		setStartFormattedDate(format(data.startDate, 'dd-MM-yyyy'))
-		setEndFormattedDate(format(data.endDate, 'dd-MM-yyyy'))
+		setStartFormattedDate(format(data.startDate, 'dd-MM-yy'))
+		setEndFormattedDate(format(data.endDate, 'dd-MM-yy'))
 
 		setStartDate(startDay)
 		setEndDate(endDay)
@@ -176,7 +176,7 @@ const Booking = () => {
 				formattedData[key] = data[key]
 			}
 		})
-
+		
 		console.log(formattedData)
 
 		try {
@@ -252,12 +252,14 @@ const Booking = () => {
 								<input
 									{...register('dates')}
 									aria-invalid={errors.dates ? 'true' : 'false'}
-									placeholder='Даты пребывания'
+									placeholder='Даты прибывания'
+									
 									className={`input-form ${addDateClass}`}
 									// onFocus={
 									// 	errors.dates ? removeDateClassChange : handleDateClassChange
 									// }
 									onBlur={() => {
+										
 										errors.dates || !(startDate && endDate)
 											? removeDateClassChange()
 											: handleDateClassChange();
@@ -273,6 +275,7 @@ const Booking = () => {
 										setOpenCalendar(!openCalendar)
 									}}
 									onChange={event => {
+										
 										setValue('dates', event.target.value) // Обновляем значение в контролируемом компоненте react-hook-form
 										if (errors.dates) {
 											removeDateClassChange()
