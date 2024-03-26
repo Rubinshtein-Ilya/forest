@@ -19,11 +19,18 @@ import './Cosiness.scss'
 import './CosinessSwiper.scss'
 import cosiness from '../../constants/constants'
 import playImage from '/icons/play.svg'
+import CosinesSlider from '../../components/Sliders/Cosines-slider'
 
-const Cosiness = () => {
+const Cosiness = ({setCosinesIsSlader,setIsOverlay}) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const videoRef = useRef(null)
 	const [thumbsSwiper, setThumbsSwiper] = useState(null)
+
+	const handleClick = () => {
+		setCosinesIsSlader(true); 
+		setIsOverlay(true);
+	  };
+	
 
 	const handleTogglePlay = () => {
 		const video = videoRef.current
@@ -93,7 +100,7 @@ const Cosiness = () => {
 								}}
 							>
 								{cosiness.map(item => (
-									<SwiperSlide key={item.name}>
+									<SwiperSlide onClick={handleClick} key={item.name}>
 										<img src={item.url} alt='slide' />
 									</SwiperSlide>
 								))}
@@ -192,6 +199,7 @@ const Cosiness = () => {
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	)
 }

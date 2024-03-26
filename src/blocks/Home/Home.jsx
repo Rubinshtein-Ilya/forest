@@ -4,8 +4,14 @@ import { useState, useRef } from 'react'
 import photo1 from '/images/active-photo/1.png'
 import photo2 from '/images/active-photo/2.png'
 
-const Home = () => {
+
+const Home = ({setIsHomeSlader,setIsOverlay}) => {
 	const [activePhoto, setActivePhoto] = useState(photo1)
+
+	const handleClick = () => {
+		setIsHomeSlader(true); 
+		setIsOverlay(true);
+	  };
 
 	return (
 		<>
@@ -68,7 +74,7 @@ const Home = () => {
 								</div>
 							</div>
 							<div className='home__active-photo'>
-								<div className='home__top'>
+								<div className='home__top' onClick={handleClick}>
 									<img
 										onClick={() =>
 											setActivePhoto(activePhoto === photo1 ? photo2 : photo1)

@@ -6,6 +6,7 @@ import priceImage from '/images/price.png'
 import priceBG from '/images/price-bg.jpg'
 import okImage from '/icons/ok.svg'
 import notImage from '/icons/not.svg'
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Prices = (props) => {
 	return (
@@ -190,32 +191,34 @@ const Prices = (props) => {
 							</div>
 
 							{props.isNavClicked && (
-							<a href="#header">
-								<button className='exlusive-button prices-btn'>
-									
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										width='12'
-										height='26'
-										viewBox='0 0 12 26'
-										fill='none'
-									>
-										<path
-											fillRule='evenodd'
-											clipRule='evenodd'
-											d='M5.29289 0.292893C5.68342 -0.0976311 6.31658 -0.0976311 6.70711 0.292893L10.7071 4.29289C11.0976 4.68342 11.0976 5.31658 10.7071 5.70711C10.3166 6.09763 9.68342 6.09763 9.29289 5.70711L6 2.41421L2.70711 5.70711C2.31658 6.09763 1.68342 6.09763 1.29289 5.70711C0.902369 5.31658 0.902369 4.68342 1.29289 4.29289L5.29289 0.292893Z'
-											fill='#F7FDFB'
-										/>
-										<path
-											fillRule='evenodd'
-											clipRule='evenodd'
-											d='M6 4C6.55228 4 7 4.44772 7 5L7 25C7 25.5523 6.55228 26 6 26C5.44772 26 5 25.5523 5 25L5 5C5 4.44772 5.44772 4 6 4Z'
-											fill='#F7FDFB'
-										/>
-									</svg>
-									
-								</button>
-							</a>
+								<ScrollAnimation duration={0.3} offset={100} animateIn='animate__fadeIn'>
+									<a href="#header">
+										<button className='exlusive-button prices-btn'>
+											
+											<svg
+												xmlns='http://www.w3.org/2000/svg'
+												width='12'
+												height='26'
+												viewBox='0 0 12 26'
+												fill='none'
+											>
+												<path
+													fillRule='evenodd'
+													clipRule='evenodd'
+													d='M5.29289 0.292893C5.68342 -0.0976311 6.31658 -0.0976311 6.70711 0.292893L10.7071 4.29289C11.0976 4.68342 11.0976 5.31658 10.7071 5.70711C10.3166 6.09763 9.68342 6.09763 9.29289 5.70711L6 2.41421L2.70711 5.70711C2.31658 6.09763 1.68342 6.09763 1.29289 5.70711C0.902369 5.31658 0.902369 4.68342 1.29289 4.29289L5.29289 0.292893Z'
+													fill='#F7FDFB'
+												/>
+												<path
+													fillRule='evenodd'
+													clipRule='evenodd'
+													d='M6 4C6.55228 4 7 4.44772 7 5L7 25C7 25.5523 6.55228 26 6 26C5.44772 26 5 25.5523 5 25L5 5C5 4.44772 5.44772 4 6 4Z'
+													fill='#F7FDFB'
+												/>
+											</svg>
+											
+										</button>
+									</a>
+								</ScrollAnimation>
 							)}
 						</div>
 						

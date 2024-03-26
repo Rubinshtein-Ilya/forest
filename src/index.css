@@ -3,6 +3,7 @@
 @import 'styles/media.scss';
 @import 'styles/base/variables.scss';
 @import 'styles/base/text.scss';
+@import "animate.css/animate.min.css";
 
 * {
 	color: var(--text-color);
@@ -28,7 +29,7 @@ ul {
 	list-style-type: none;
 }
 
-/* .overlay {
+.overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -36,7 +37,7 @@ ul {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 20;
-} */
+}
 
 html {
 	scroll-behavior: smooth; /* Делает прокрутку плавной */
