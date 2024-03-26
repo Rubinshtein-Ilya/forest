@@ -6,6 +6,9 @@ import Icon from '../Icon/Icon'
 
 function Footer() {
 	const [count, setCount] = useState(0)
+	
+
+	
 
 	return (
 		<>
@@ -72,25 +75,38 @@ function Footer() {
 							<p className='footer__it-products' href='#'>Создаём и продвигаем <br />ваши it продукты </p>
 							<a className='footer__conf' href="/documents/Политика_конфиденциальности_Время_Леса_1.pdf" download>Политика конфиденциальности</a>
 						</div>
-						<div className="footer__modal-container">
-							<p className="footer__modal-text">Мы создаём веб-сайты сервисы, которые превращают ваш
-							 бренд в мощную онлайн-платформу, раскрывая его полный
-							  потенциал  </p>
-							<div className="footer__modal-row">
-								{Icon('phone-footer')}
-								<a href="tel:+79226152393">+7 911 719-71-92</a>
-								<a href="">usov.site</a>
+
+						
+						
+							<div className="footer__modal-container">
+								<div className="footer__modal-top">
+									<p className="footer__modal-text">Мы создаём веб-сайты сервисы, которые превращают ваш
+									бренд в мощную онлайн-платформу, раскрывая его полный
+									потенциал  </p>
+									{/* <div data-close className="footer__modal-close" >&times;</div> */}
+								</div>
+								
+								<div className="footer__modal-row">
+									{Icon('phone-footer')}
+									<a href="tel:+79226152393">+7 911 719-71-92</a>
+									<a href="">usov.site</a>
+								</div>
+								<div className="footer__modal-row">
+										{Icon('tg-footer')}
+										{Icon('wa-footer')}
+										{Icon('mail')}
+								</div>
+								<div className="footer__modal-row">
+									<img className='footer__usov' src="/images/usov-black.png" alt="logo" />
+									<p className='footer__it-products' href='#'>Создаём и продвигаем <br />ваши it продукты </p>
+								</div>
+							
 							</div>
-							<div className="footer__modal-row">
-									{Icon('tg-footer')}
-									{Icon('wa-footer')}
-									{Icon('mail')}
-							</div>
-							<div className="footer__modal-row">
-								<img className='footer__usov' src="/images/usov-black.png" alt="logo" />
-								<p className='footer__it-products' href='#'>Создаём и продвигаем <br />ваши it продукты </p>
-							</div>
-						</div>
+						
+						
+			
+						
+
 					</div>
 				</div>
 			</footer>

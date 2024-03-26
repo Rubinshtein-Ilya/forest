@@ -21,7 +21,7 @@ const Home = () => {
 										<div className='home__icon-photo'>
 											<img src='/icons/home-icon1.svg' alt='home' />
 										</div>
-										<p className='home__icon-text'>180 м2</p>
+										<p className='home__icon-text'>180 м<sup className='sup'>2</sup></p>
 									</div>
 									<div className='home__icon'>
 										<div className='home__icon-photo'>

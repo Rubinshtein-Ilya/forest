@@ -33,7 +33,7 @@
 
 	&__input-arrow {
 		position: absolute;
-		z-index: 2;
+		// z-index: 2;
 		right: 30px;
 		top: 50%;
 		transform: translateY(-50%);
@@ -99,9 +99,9 @@
 	}
 }
 
-input.input-form.phone-input::placeholder {
-	color: #ffffff !important; /* Белый цвет плейсхолдера при фокусе */
-  }
+// input.input-form.phone-input::placeholder {
+// 	color: #ffffff !important; /* Белый цвет плейсхолдера при фокусе */
+//   }
 
   .css-tj5bde-Svg {
 	stroke: #3b3b3b !important;

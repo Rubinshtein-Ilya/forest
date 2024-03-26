@@ -1,4 +1,6 @@
 .prices {
+	margin-top: 32px;
+	// position: relative;
 	&__prices {
 		margin-top: 30px !important;
 	}
@@ -363,6 +365,7 @@
 		grid-template-rows: 506px;
 		width: 100%;
 		justify-content: space-between;
+		position: relative;
 	}
 
 	&__rules {
@@ -481,7 +484,20 @@
 	}
 }
 
+.prices-btn {
+	position: absolute;
+	bottom: -15% !important;
+    right: 6% !important;
+    z-index: 5;
+}
+
 @media (max-width: 1386px) {
+	.break {
+		display: block;
+	}
+	.prices-btn {
+		bottom: -6% !important;	
+	}
 	.prices {
 		&__prices {
 			width: 880px;
@@ -545,6 +561,12 @@
 	}
 }
 @media (max-width: 980px) {
+	.prices-btn {
+		bottom: -3% !important;	
+	}
+	.break {
+		display: none;
+	}
 	.prices {
 		&__prices {
 			width: 648px;
@@ -945,12 +967,26 @@
 }
 
 @media screen and (max-width: 1386px) {
+	.prices {
+		margin-top: 32px;
+	}
+	
 	.prices__rules-list li {
 		width: 91%;
 	}
 }
 
+@media (max-width: 748px) { 
+	.prices__comfort-list li p span{
+		display: inline-block;
+	}
+	
+}
+
 @media (max-width: 460px) {
+	.break {
+		display: block;
+	}
 	.prices {
 		&__prices {
 			width: 100%;
@@ -1068,6 +1104,23 @@
 				text-align: left;
 			}
 		}
+	}
+}
+@media (max-width: 385px) {
+	.break {
+		display: none;
+	}
+	.prices-break {
+		display: block;
+		width: 20px;
+	}
+}
+
+@media (max-width: 342px) {
+
+	.prices-break {
+		width: 0px;
+		
 	}
 }
 .ruble {

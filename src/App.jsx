@@ -18,7 +18,7 @@ import Footer from './components/Footer/Footer'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(true)
-
+	const [isNavClicked, setIsNavClicked] = useState(false)
 	// useEffect(() => {
 	// 	// Функция, которая будет вызвана при загрузке всех ресурсов страницы
 	// 	const handleLoad = () => {
@@ -36,17 +36,17 @@ function App() {
 
 	return (
 		<>
-			<Header />
+			<Header isNavClicked={isNavClicked} setIsNavClicked={setIsNavClicked}/>
 			<Promo />
 			<Booking />
 			<Home />
 			<Atmosphere />
 			<Cosiness />
-			<Prices />
+			<Prices isNavClicked={isNavClicked}/>
 			<Rest />
 			<Sale />
 			<Location />
-			<Exclusive />
+			<Exclusive isNavClicked={isNavClicked}/>
 			<Questions />
 			<Footer />
 		</>

@@ -114,7 +114,10 @@
 		color: rgb(247, 253, 251);
 		font-size: 16px;
 	}
-
+	&__modal-wrapper {
+			width: 565px;
+			height: 260px;
+	}
 	&__modal-container {
 		width: 210px;
     	height: 53px;
@@ -139,6 +142,19 @@
 			height: 260px;
 			opacity: 1;
 		}
+	}
+	&__modal-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	&__modal-close {
+		width: 50px;
+		height: 50px;
+		color: white;
+		font-size: 40px;
+		margin-top: -2%;
+		cursor: pointer;
 	}
 	&__modal-container a.footer__it-products{
 		font-size: 16px;
@@ -273,6 +289,20 @@
 	}
 }
 @media (max-width: 748px) {
+	.footer__modal-container {
+		background-image: none;
+
+		&__it-products {
+			font-size: 14px;
+		}
+
+		&:hover {
+			width: 90%;
+			height: 40%;
+			opacity: 1;
+		}
+	}
+
 	.footer {
 		margin-top: 20px;
 
@@ -339,6 +369,9 @@
 }
 
 @media screen and (max-width: 460px) {
+	.footer__modal-container {
+		
+	}
 	.footer {
 		&__top {
 			grid-template-rows: 105px 89px 99px 205px;

@@ -4,9 +4,14 @@ import '../../App.css'
 import logo from '/icons/logo.svg'
 import Icon from '../Icon/Icon'
 
-function Header() {
+function Header({ setIsNavClicked }) {
 	const [count, setCount] = useState(0)
 	const [showMenuBurger, setShowMenuBurger] = useState(false)
+
+	const handleClick = () => {
+		setIsNavClicked(true); 
+		
+	  };
 
 	return (
 		<>
@@ -116,7 +121,7 @@ function Header() {
 									<a href='#location__found'>Как добраться</a>
 								</li>
 								<li>
-									<a href='#exclusive'>Дополнительные услуги</a>
+									<a href='#exclusive' onClick={handleClick}>Дополнительные услуги</a>
 								</li>
 								<li>
 									<a href='#footer'>Контакты</a>

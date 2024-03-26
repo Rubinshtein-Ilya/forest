@@ -37,9 +37,16 @@ const Booking = () => {
 	const [initialStartDate, setInitialStartDate] = useState('')
 	const [initialEndDate, setInitialEndDate] = useState('')
 	const [isFocused, setIsFocused] = useState(false)
+	const [isChanged, setIsChanged] = useState(false)
+	const [isChangedName, setIsChangedName] = useState(false)
+	const [nameValue, setNameValue] = useState('')
 
 	const handleFocus = () => {
 		setIsFocused(true)
+	}
+
+	const handleNameChange = (event) => {
+		setNameValue(event.target.value)
 	}
 
 	const handleBlur = () => {
@@ -253,7 +260,9 @@ const Booking = () => {
 									onBlur={() => {
 										errors.dates || !(startDate && endDate)
 											? removeDateClassChange()
-											: handleDateClassChange()
+											: handleDateClassChange();
+											setIsChanged(true)
+											
 									}}
 									onClick={() => {
 										// setError('dates', false) // Сброс ошибки
@@ -270,13 +279,15 @@ const Booking = () => {
 										} else {
 											handleDateClassChange()
 										}
+										
 									}}
 									value={
-										startDate && endDate ? `${startDate} - ${endDate}` : ''
+										startDate && endDate ? `${startDate} - ${endDate}` : '' 
 									}
 									autoComplete='off'
 								/>
-								<div className='booking__input-arrow'>
+								{ !isChanged? (
+									<div className='booking__input-arrow'>
 									<svg
 										height='20'
 										width='20'
@@ -288,7 +299,12 @@ const Booking = () => {
 									>
 										<path d='M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z' stroke='#3B3B3B' ></path>
 									</svg>
-								</div>
+								</div>)
+								: (
+									<div className='booking__input-arrow'>
+									  <img src="/images/pen.png" alt="pen" />
+								 	</div>)}
+								
 								{errors.dates && (
 									<img className='error-icon' src={errorImage} alt='error' />
 								)}
@@ -298,6 +314,7 @@ const Booking = () => {
 								control={control}
 								render={({ field }) => (
 									<div className='input__wrapper booking__input-wrapper'>
+										
 										<Select
 											{...field}
 											options={[
@@ -319,7 +336,7 @@ const Booking = () => {
 											onMenuClose={() => {
 												if (selectValue.value === undefined) {
 													selectClass()
-												}
+												} 
 											}}
 											styles={{
 												control: (baseStyles, { isFocused }) => ({
@@ -354,12 +371,13 @@ const Booking = () => {
 								)}
 							/>
 
-							<div className='input__wrapper booking__input-wrapper'>
+							{/* <div className='input__wrapper booking__input-wrapper'>
 								<input
-									{...register('firstName')}
+									{...register('guests')}
 									aria-invalid={errors.firstName ? 'true' : 'false'}
-									placeholder='Имя*'
+									placeholder='Колличество гостей*'
 									className={`input-form ${addNameClass}`}
+									// value={guestsValue}
 									// onFocus={
 									// 	errors.firstName
 									// 		? removeNameClassChange
@@ -370,15 +388,64 @@ const Booking = () => {
 											? removeNameClassChange()
 											: handleNameClassChange()
 									}}
-									// onChange={
-									// 	errors.firstName
-									// 		? removeNameClassChange
-									// 		: handleNameClassChange
-									// }
+									// onChange={ (event) => {
+										// errors.firstName
+										// 	? removeNameClassChange
+										// 	: handleNameClassChange
+									
+									// }}
+									
+									onInput={(event) => {
+										// setIsChangedName(true)
+										setGuestsValue(event.target.value)
+										
+									}}
 								/>
 								{errors.firstName && (
 									<img className='error-icon' src={errorImage} alt='error' />
 								)}
+								
+							</div> */}
+
+
+							<div className='input__wrapper booking__input-wrapper'>
+								<input
+									{...register('firstName')}
+									aria-invalid={errors.firstName ? 'true' : 'false'}
+									placeholder='Имя*'
+									className={`input-form ${addNameClass}`}
+									value={nameValue}
+									// onFocus={
+									// 	errors.firstName
+									// 		? removeNameClassChange
+									// 		: handleNameClassChange
+									// }
+									onBlur={() => {
+										errors.firstName || firstNameValue.length < 2
+											? removeNameClassChange()
+											: handleNameClassChange()
+									}}
+									// onChange={ (event) => {
+										// errors.firstName
+										// 	? removeNameClassChange
+										// 	: handleNameClassChange
+									
+									// }}
+									
+									onInput={(event) => {
+										// setIsChangedName(true)
+										setNameValue(event.target.value)
+										
+									}}
+								/>
+								{errors.firstName && (
+									<img className='error-icon' src={errorImage} alt='error' />
+								)}
+								{ nameValue !== '' ?(
+									<div className='booking__input-arrow'>
+										<img src="/images/pen.png" alt="pen" />
+								   </div>): null
+									}
 							</div>
 
 							<Controller
@@ -434,6 +501,11 @@ const Booking = () => {
 										) : (
 											<img />
 										)}
+										{field.value !== '' ? (
+											<div className='booking__input-arrow'>
+												<img src="/images/pen.png" alt="pen" />
+											</div>
+										): null}
 									</div>
 								)}
 							/>
