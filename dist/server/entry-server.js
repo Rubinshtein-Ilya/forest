@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { IMaskInput } from "react-imask";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
+import ScrollAnimation from "react-animate-on-scroll";
 const logo = "/icons/logo.svg";
 const phone = "/icons/phone.svg";
 const wa = "/icons/wa.svg";
@@ -38,9 +39,12 @@ function Icon(props) {
     props === "phone-footer" && /* @__PURE__ */ jsx("a", { href: "tel:+79226152393", className: "social social-phone", children: /* @__PURE__ */ jsx("img", { src: phoneFooter, alt: "phone" }) })
   ] });
 }
-function Header() {
+function Header({ setIsNavClicked }) {
   useState(0);
   const [showMenuBurger, setShowMenuBurger] = useState(false);
+  const handleClick = () => {
+    setIsNavClicked(true);
+  };
   return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs("header", { className: "header", id: "header", children: [
     showMenuBurger && /* @__PURE__ */ jsx("div", { className: "overlay", onClick: () => setShowMenuBurger("") }),
     /* @__PURE__ */ jsxs("div", { className: "container", children: [
@@ -124,7 +128,7 @@ function Header() {
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#prices", children: "Цена" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#location", children: "О локации" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#location__found", children: "Как добраться" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#exclusive", children: "Дополнительные услуги" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#exclusive", onClick: handleClick, children: "Дополнительные услуги" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { href: "#footer", children: "Контакты" }) })
         ] }) }),
         /* @__PURE__ */ jsxs("div", { className: "socials", children: [
@@ -234,8 +238,8 @@ const Promo = () => {
         /* @__PURE__ */ jsx("div", { className: "promo__corner-two", children: /* @__PURE__ */ jsx(
           "svg",
           {
-            width: "29",
-            height: "30",
+            width: "30",
+            height: "20",
             viewBox: "0 0 12 11",
             fill: "none",
             xmlns: "http://www.w3.org/2000/svg",
@@ -399,7 +403,7 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
       "is-future-date",
       "Дата въезда не может быть в прошлом",
       function(value) {
-        const startDate2 = parse(value, "dd-MM-yyyy", /* @__PURE__ */ new Date());
+        const startDate2 = parse(value, "dd-MM-yy", /* @__PURE__ */ new Date());
         return isValid(startDate2) && startDate2 >= /* @__PURE__ */ new Date();
       }
     ),
@@ -415,8 +419,8 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    setValue("startDate", start ? format(start, "dd-MM-yyyy") : null);
-    setValue("endDate", end ? format(end, "dd-MM-yyyy") : null);
+    setValue("startDate", start ? format(start, "dd-MM-yy") : null);
+    setValue("endDate", end ? format(end, "dd-MM-yy") : null);
     updateFormattedDates(start, end);
   };
   const onSubmit = (data) => {
@@ -476,10 +480,10 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
   const updateFormattedDates = (startDate2, endDate2) => {
     clearErrors();
     if (startDate2 && endDate2) {
-      const formattedStartDate = format(startDate2, "dd MMM yyyy г.", {
+      const formattedStartDate = format(startDate2, "dd MMM yy г.", {
         locale: ru
       });
-      const formattedEndDate = format(endDate2, "dd MMM yyyy г.", { locale: ru });
+      const formattedEndDate = format(endDate2, "dd MMM yy г.", { locale: ru });
       setStartFormattedDate(formattedStartDate);
       setEndFormattedDate(formattedEndDate);
     } else {
@@ -513,23 +517,23 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
                 IMaskInput,
                 {
                   autoFocus: true,
-                  mask: "00-00-0000",
+                  mask: "00-00-00",
                   value: field.value || "",
                   placeholder: "Укажите дату",
                   "aria-invalid": errors.startDate ? "true" : "false",
                   onAccept: (value) => {
-                    const date = parse(value, "dd-MM-yyyy", /* @__PURE__ */ new Date());
-                    if (!isNaN(date) && date > /* @__PURE__ */ new Date()) {
+                    const date = parse(value, "dd-MM", /* @__PURE__ */ new Date());
+                    if (!isNaN(date)) {
                       setStartDate(date);
-                      setValue("startDate", format(date, "dd-MM-yyyy"));
+                      setValue("startDate", format(date, "dd-MM-yy"));
+                      console.log(errors);
                       clearErrors("startDate");
                       setStartFormattedDate(
-                        format(startDate, "dd MMM yyyy г.", {
+                        format(date, "dd MMM yy г.", {
                           locale: ru
                         })
                       );
                     }
-                    console.log(errors);
                   },
                   style: { border: "none" },
                   className: "date-picker__input"
@@ -556,19 +560,19 @@ const DatePicker = ({ onSubmitCallback, initialDates }) => {
               /* @__PURE__ */ jsx(
                 IMaskInput,
                 {
-                  mask: "00-00-0000",
+                  mask: "00-00-00",
                   "aria-invalid": errors.endDate ? "true" : "false",
                   value: field.value || "",
                   placeholder: "Укажите дату",
                   onAccept: (value) => {
-                    const date = parse(value, "dd-MM-yyyy", /* @__PURE__ */ new Date());
+                    const date = parse(value, "dd-MM", /* @__PURE__ */ new Date());
                     if (!isNaN(date) && date > startDate) {
                       setEndDate(date);
-                      setValue("endDate", format(date, "dd-MM-yyyy"));
+                      setValue("endDate", format(date, "dd-MM-yy"));
                       console.log(errors);
                       clearErrors("endDate");
                       setEndFormattedDate(
-                        format(date, "dd MMM yyyy г.", {
+                        format(date, "dd MMM yy г.", {
                           locale: ru
                         })
                       );
@@ -656,6 +660,9 @@ const Booking = () => {
   const [initialStartDate, setInitialStartDate] = useState("");
   const [initialEndDate, setInitialEndDate] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
+  useState(false);
+  const [nameValue, setNameValue] = useState("");
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -724,10 +731,10 @@ const Booking = () => {
   const handleDatePickerSubmit = (data) => {
     setInitialStartDate(data.startDate);
     setInitialEndDate(data.endDate);
-    const startDay = format(data.startDate, "dd MMM yyyy г.", { locale: ru });
-    const endDay = format(data.endDate, "dd MMM yyyy г.", { locale: ru });
-    setStartFormattedDate(format(data.startDate, "dd-MM-yyyy"));
-    setEndFormattedDate(format(data.endDate, "dd-MM-yyyy"));
+    const startDay = format(data.startDate, "dd MMM yy г.", { locale: ru });
+    const endDay = format(data.endDate, "dd MMM yy г.", { locale: ru });
+    setStartFormattedDate(format(data.startDate, "dd-MM-yy"));
+    setEndFormattedDate(format(data.endDate, "dd-MM-yy"));
     setStartDate(startDay);
     setEndDate(endDay);
     setValue("dates", `${data.startDate} - ${data.endDate}`);
@@ -829,10 +836,11 @@ const Booking = () => {
                 {
                   ...register("dates"),
                   "aria-invalid": errors.dates ? "true" : "false",
-                  placeholder: "Даты пребывания",
+                  placeholder: "Даты прибывания",
                   className: `input-form ${addDateClass}`,
                   onBlur: () => {
                     errors.dates || !(startDate && endDate) ? removeDateClassChange() : handleDateClassChange();
+                    setIsChanged(true);
                   },
                   onClick: () => {
                     clearErrors("dates");
@@ -851,7 +859,7 @@ const Booking = () => {
                   autoComplete: "off"
                 }
               ),
-              /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx(
+              !isChanged ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx(
                 "svg",
                 {
                   height: "20",
@@ -862,7 +870,7 @@ const Booking = () => {
                   fill: "#afafaf",
                   children: /* @__PURE__ */ jsx("path", { d: "M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z", stroke: "#3B3B3B" })
                 }
-              ) }),
+              ) }) : /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }),
               errors.dates && /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" })
             ] }),
             /* @__PURE__ */ jsx(
@@ -934,12 +942,17 @@ const Booking = () => {
                   "aria-invalid": errors.firstName ? "true" : "false",
                   placeholder: "Имя*",
                   className: `input-form ${addNameClass}`,
+                  value: nameValue,
                   onBlur: () => {
                     errors.firstName || firstNameValue.length < 2 ? removeNameClassChange() : handleNameClassChange();
+                  },
+                  onInput: (event2) => {
+                    setNameValue(event2.target.value);
                   }
                 }
               ),
-              errors.firstName && /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" })
+              errors.firstName && /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" }),
+              nameValue !== "" ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }) : null
             ] }),
             /* @__PURE__ */ jsx(
               Controller,
@@ -983,7 +996,8 @@ const Booking = () => {
                       src: errorImage,
                       alt: "error"
                     }
-                  ) : /* @__PURE__ */ jsx("img", {})
+                  ) : /* @__PURE__ */ jsx("img", {}),
+                  field.value !== "" ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }) : null
                 ] })
               }
             ),
@@ -1013,8 +1027,12 @@ const Title = (props) => {
 };
 const photo1 = "/images/active-photo/1.png";
 const photo2 = "/images/active-photo/2.png";
-const Home = () => {
+const Home = ({ setIsHomeSlader, setIsOverlay }) => {
   const [activePhoto, setActivePhoto] = useState(photo1);
+  const handleClick = () => {
+    setIsHomeSlader(true);
+    setIsOverlay(true);
+  };
   return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx("div", { className: "home", id: "home", children: /* @__PURE__ */ jsxs("div", { className: "container", children: [
     /* @__PURE__ */ jsx("div", { className: "home__bg" }),
     /* @__PURE__ */ jsxs("div", { className: "home__wrapper", children: [
@@ -1024,7 +1042,10 @@ const Home = () => {
           /* @__PURE__ */ jsxs("div", { className: "home__icons", children: [
             /* @__PURE__ */ jsxs("div", { className: "home__icon", children: [
               /* @__PURE__ */ jsx("div", { className: "home__icon-photo", children: /* @__PURE__ */ jsx("img", { src: "/icons/home-icon1.svg", alt: "home" }) }),
-              /* @__PURE__ */ jsx("p", { className: "home__icon-text", children: "180 м2" })
+              /* @__PURE__ */ jsxs("p", { className: "home__icon-text", children: [
+                "180 м",
+                /* @__PURE__ */ jsx("sup", { className: "sup", children: "2" })
+              ] })
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "home__icon", children: [
               /* @__PURE__ */ jsx("div", { className: "home__icon-photo", children: /* @__PURE__ */ jsx("img", { src: "/icons/home-icon2.svg", alt: "home" }) }),
@@ -1058,7 +1079,7 @@ const Home = () => {
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "home__active-photo", children: [
-          /* @__PURE__ */ jsx("div", { className: "home__top", children: /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx("div", { className: "home__top", onClick: handleClick, children: /* @__PURE__ */ jsx(
             "img",
             {
               onClick: () => setActivePhoto(activePhoto === photo1 ? photo2 : photo1),
@@ -1222,10 +1243,129 @@ const cosiness = [
   { name: "slide23", url: "/images/swiper-cosiness/23.jpeg" }
 ];
 const playImage = "/icons/play.svg";
-const Cosiness = () => {
+const CosinesSlider = ({ setCosinesIsSlader, setIsOverlay }) => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const handleClick = () => {
+    setCosinesIsSlader(false);
+    setIsOverlay(false);
+  };
+  return /* @__PURE__ */ jsx("div", { className: "big-cosines-wrapper", children: /* @__PURE__ */ jsxs("div", { className: "big-cosines-slider", children: [
+    /* @__PURE__ */ jsx("div", { className: "slider-close-btn", onClick: handleClick, children: "×" }),
+    /* @__PURE__ */ jsx(
+      Swiper,
+      {
+        className: "big-cosiness-swiper2",
+        modules: [
+          FreeMode,
+          Navigation,
+          Thumbs
+        ],
+        loop: true,
+        spaceBetween: 32,
+        slidesPerView: 1,
+        thumbs: { swiper: thumbsSwiper },
+        navigation: {
+          nextEl: ".big-cosiness-next-button",
+          prevEl: ".big-cosiness-prev-button"
+        },
+        children: cosiness.map((item) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: item.url, alt: "slide" }) }, item.name))
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      Swiper,
+      {
+        onSwiper: setThumbsSwiper,
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        modules: [FreeMode, Navigation, Thumbs],
+        className: "big-cosiness-swiper",
+        navigation: {
+          nextEl: ".big-cosiness-next-button",
+          prevEl: ".big-cosiness-prev-button"
+        },
+        breakpoints: {
+          1366: {
+            slidesPerView: 6
+          }
+        },
+        children: cosiness.map((item) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: item.url, alt: "slide" }) }, item.name))
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "big-cosiness__navigation", children: [
+      /* @__PURE__ */ jsx("button", { className: "big-cosiness-prev-button", children: /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: "26",
+          height: "12",
+          viewBox: "0 0 26 12",
+          fill: "none",
+          children: [
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M0.292893 6.70711C-0.0976309 6.31658 -0.0976309 5.68342 0.292893 5.29289L4.29289 1.29289C4.68342 0.902369 5.31658 0.902369 5.70711 1.29289C6.09763 1.68342 6.09763 2.31658 5.70711 2.70711L2.41421 6L5.70711 9.29289C6.09763 9.68342 6.09763 10.3166 5.70711 10.7071C5.31658 11.0976 4.68342 11.0976 4.29289 10.7071L0.292893 6.70711Z",
+                fill: "#232221"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M4 6C4 5.44772 4.44772 5 5 5L25 5C25.5523 5 26 5.44772 26 6C26 6.55229 25.5523 7 25 7L5 7C4.44772 7 4 6.55228 4 6Z",
+                fill: "#232221"
+              }
+            )
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsx("button", { className: "big-cosiness-next-button", children: /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: "26",
+          height: "12",
+          viewBox: "0 0 26 12",
+          fill: "none",
+          children: [
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M25.7071 6.70711C26.0976 6.31658 26.0976 5.68342 25.7071 5.29289L21.7071 1.29289C21.3166 0.902369 20.6834 0.902369 20.2929 1.29289C19.9024 1.68342 19.9024 2.31658 20.2929 2.70711L23.5858 6L20.2929 9.29289C19.9024 9.68342 19.9024 10.3166 20.2929 10.7071C20.6834 11.0976 21.3166 11.0976 21.7071 10.7071L25.7071 6.70711Z",
+                fill: "#F7FDFB"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M22 6C22 5.44772 21.5523 5 21 5L1 5C0.447716 5 -1.85108e-08 5.44772 -1.19249e-08 6C-5.33895e-09 6.55229 0.447716 7 1 7L21 7C21.5523 7 22 6.55228 22 6Z",
+                fill: "#F7FDFB"
+              }
+            )
+          ]
+        }
+      ) })
+    ] })
+  ] }) });
+};
+const Cosiness = ({ setCosinesIsSlader, setIsOverlay }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const handleClick = () => {
+    setCosinesIsSlader(true);
+    setIsOverlay(true);
+  };
   const handleTogglePlay = () => {
     const video = videoRef.current;
     if (video) {
@@ -1283,7 +1423,7 @@ const Cosiness = () => {
               }
             },
             children: [
-              cosiness.map((item) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: item.url, alt: "slide" }) }, item.name)),
+              cosiness.map((item) => /* @__PURE__ */ jsx(SwiperSlide, { onClick: handleClick, children: /* @__PURE__ */ jsx("img", { src: item.url, alt: "slide" }) }, item.name)),
               /* @__PURE__ */ jsxs("div", { className: "cosiness__navigation", children: [
                 /* @__PURE__ */ jsx("button", { className: "cosiness-prev-button", children: /* @__PURE__ */ jsxs(
                   "svg",
@@ -1426,7 +1566,7 @@ const priceImage = "/images/price.png";
 const priceBG = "/images/price-bg.jpg";
 const okImage = "/icons/ok.svg";
 const notImage = "/icons/not.svg";
-const Prices = () => {
+const Prices = (props) => {
   return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx("div", { className: "prices", id: "prices", children: /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsxs("div", { className: "prices__wrapper", children: [
     /* @__PURE__ */ jsxs("div", { className: "prices__blocks", children: [
       /* @__PURE__ */ jsxs("div", { className: "prices__include", children: [
@@ -1541,7 +1681,11 @@ const Prices = () => {
               /* @__PURE__ */ jsx("strong", { children: "5 000 " }),
               /* @__PURE__ */ jsx("span", { className: "ruble", children: "₽" })
             ] }),
-            /* @__PURE__ */ jsx("li", { children: "Предоплата не возвращается при отмене бронирования менее, чем за 72 часа до даты заезда" }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              "Предоплата не возвращается при отмене бронирования менее, чем за 72 часа ",
+              /* @__PURE__ */ jsx("span", { className: "break" }),
+              "до даты заезда"
+            ] }),
             /* @__PURE__ */ jsxs("li", { children: [
               "При заезде необходимо внести залог",
               " ",
@@ -1580,7 +1724,9 @@ const Prices = () => {
           /* @__PURE__ */ jsxs("li", { children: [
             /* @__PURE__ */ jsx("img", { src: notImage, alt: "not" }),
             /* @__PURE__ */ jsxs("p", { children: [
-              "У нас в доме не курят. Штраф ",
+              "У нас в доме не курят. Штраф",
+              /* @__PURE__ */ jsx("span", { className: "prices-break" }),
+              " ",
               /* @__PURE__ */ jsx("strong", { children: "10 000 " }),
               /* @__PURE__ */ jsx("span", { className: "ruble", children: "₽" })
             ] })
@@ -1594,7 +1740,37 @@ const Prices = () => {
             /* @__PURE__ */ jsx("p", { children: "На всей территории запрещены салюты, фейерверки и любая пиротехника" })
           ] })
         ] })
-      ] })
+      ] }),
+      props.isNavClicked && /* @__PURE__ */ jsx(ScrollAnimation, { duration: 0.3, offset: 100, animateIn: "animate__fadeIn", children: /* @__PURE__ */ jsx("a", { href: "#header", children: /* @__PURE__ */ jsx("button", { className: "exlusive-button prices-btn", children: /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: "12",
+          height: "26",
+          viewBox: "0 0 12 26",
+          fill: "none",
+          children: [
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M5.29289 0.292893C5.68342 -0.0976311 6.31658 -0.0976311 6.70711 0.292893L10.7071 4.29289C11.0976 4.68342 11.0976 5.31658 10.7071 5.70711C10.3166 6.09763 9.68342 6.09763 9.29289 5.70711L6 2.41421L2.70711 5.70711C2.31658 6.09763 1.68342 6.09763 1.29289 5.70711C0.902369 5.31658 0.902369 4.68342 1.29289 4.29289L5.29289 0.292893Z",
+                fill: "#F7FDFB"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M6 4C6.55228 4 7 4.44772 7 5L7 25C7 25.5523 6.55228 26 6 26C5.44772 26 5 25.5523 5 25L5 5C5 4.44772 5.44772 4 6 4Z",
+                fill: "#F7FDFB"
+              }
+            )
+          ]
+        }
+      ) }) }) })
     ] })
   ] }) }) }) });
 };
@@ -1827,7 +2003,7 @@ const Location = () => {
 const exclusiveImage1 = "/images/exclusive/1.jpeg";
 const exclusiveImage2 = "/images/exclusive/2.jpeg";
 const exclusiveImage3 = "/images/exclusive/3.jpeg";
-const Exclusive = () => {
+const Exclusive = (props) => {
   return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx("div", { className: "exclusive", id: "exclusive", children: /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsxs("div", { className: "exclusive__wrapper", children: [
     /* @__PURE__ */ jsx(Title, { children: "Эксклюзивные услуги для вашего удовольствия" }),
     /* @__PURE__ */ jsx("h3", { className: "subtitle exclusive__subtitle", children: "Стоимость услуг обговаривается индивидуально" }),
@@ -1865,7 +2041,7 @@ const Exclusive = () => {
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("a", { href: "#header", children: /* @__PURE__ */ jsx("button", { className: "exlusive-button", children: /* @__PURE__ */ jsxs(
+    props.isNavClicked && /* @__PURE__ */ jsx(ScrollAnimation, { duration: 1.5, offset: 200, animateIn: "animate__fadeIn", children: /* @__PURE__ */ jsx("a", { href: "#prices", children: /* @__PURE__ */ jsx("button", { className: "exlusive-button", children: /* @__PURE__ */ jsxs(
       "svg",
       {
         xmlns: "http://www.w3.org/2000/svg",
@@ -1894,7 +2070,7 @@ const Exclusive = () => {
           )
         ]
       }
-    ) }) })
+    ) }) }) })
   ] }) }) }) });
 };
 var define_import_meta_env_default = { BASE_URL: "/", MODE: "production", DEV: false, PROD: true, SSR: true };
@@ -1965,13 +2141,13 @@ const Form = () => {
       setIsSubmitted(true);
       setTimeout(() => {
         setIsSubmitted(false);
-      }, 4e3);
+      }, 1e4);
     } catch (error) {
       console.error("Ошибка отправки сообщения:", error);
       setIsErrorSubmitted(true);
       setTimeout(() => {
         setIsErrorSubmitted(false);
-      }, 4e3);
+      }, 1e4);
     }
   };
   const schema = yup.object().shape({
@@ -1981,7 +2157,8 @@ const Form = () => {
       value: yup.string().required("Обязательно для ввода"),
       label: yup.string()
     }),
-    textarea: yup.string().max(30, "Максимум 30 символов")
+    textarea: yup.string().max(30, "Максимум 30 символов"),
+    email: yup.string().required("Обязательно для ввода")
   }).required();
   useRef(null);
   const {
@@ -1994,14 +2171,16 @@ const Form = () => {
     defaultValues: {
       firstName: "",
       phone: "",
-      guests: ""
+      guests: "",
       // Добавляем значение по умолчанию для текстовой области
+      email: ""
     },
     resolver: yupResolver(schema)
   });
   const firstNameValue = watch("firstName");
   const phoneValue = watch("phone");
   watch("select");
+  const emailValue = watch("email");
   const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
     setHasMounted(true);
@@ -2021,24 +2200,27 @@ const Form = () => {
           }
         }
       ),
-      errors.firstName && /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" })
+      errors.firstName && /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" }),
+      firstNameValue.length > 0 ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }) : null
     ] }),
     /* @__PURE__ */ jsx(
       Controller,
       {
-        name: "phone",
+        name: !isEmail ? "phone" : "email",
         control,
         render: ({ field }) => /* @__PURE__ */ jsxs("div", { className: "input__wrapper", children: [
-          /* @__PURE__ */ jsx(
+          !isEmail && /* @__PURE__ */ jsx(
             IMaskInput,
             {
               mask: showPhoneMask ? "+{7} (000) 000-00-00" : "",
               definitions: {
                 0: /[0-9]/
               },
-              placeholder: !isEmail ? isFocused ? "+7 (___) ___-__-__" : "Телефон*" : isFocused ? "" : "Email*",
-              value: !isEmail ? field.value : "",
-              onAccept: (value) => field.onChange(value),
+              placeholder: isFocused ? "+7 (___) ___-__-__" : "Телефон*",
+              onAccept: (value) => {
+                field.onChange(value);
+                console.log(value);
+              },
               inputRef: (input) => {
                 field.ref(input);
                 if (errors.phone) {
@@ -2047,7 +2229,7 @@ const Form = () => {
               },
               className: `input-form input__phone-white ${addPhoneClass}`,
               onFocus: () => {
-                setShowPhoneMask(!isEmail);
+                setShowPhoneMask(true);
                 handleFocus();
                 console.log(field);
               },
@@ -2059,7 +2241,21 @@ const Form = () => {
               "aria-invalid": errors.phone ? "true" : "false"
             }
           ),
-          errors.phone ? /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" }) : /* @__PURE__ */ jsx("img", {})
+          isEmail && /* @__PURE__ */ jsx(
+            "input",
+            {
+              ...register("email"),
+              "aria-invalid": errors.email ? "true" : "false",
+              placeholder: "Email*",
+              className: `input-form ${addNameClass}`,
+              onBlur: () => {
+                errors.email || firstNameValue.length < 2 ? removeNameClassChange() : handleNameClassChange();
+              }
+            }
+          ),
+          errors.phone || errors.email ? /* @__PURE__ */ jsx("img", { className: "error-icon", src: errorImage, alt: "error" }) : /* @__PURE__ */ jsx("img", {}),
+          isEmail && emailValue.length > 0 ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }) : null,
+          !isEmail && phoneValue.length > 1 ? /* @__PURE__ */ jsx("div", { className: "booking__input-arrow", children: /* @__PURE__ */ jsx("img", { src: "/images/pen.png", alt: "pen" }) }) : null
         ] })
       }
     ),
@@ -2335,7 +2531,7 @@ function Footer() {
       /* @__PURE__ */ jsx("a", { className: "footer__conf", href: "/documents/Политика_конфиденциальности_Время_Леса_1.pdf", download: true, children: "Политика конфиденциальности" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "footer__modal-container", children: [
-      /* @__PURE__ */ jsx("p", { className: "footer__modal-text", children: "Мы создаём веб-сайты сервисы, которые превращают ваш бренд в мощную онлайн-платформу, раскрывая его полный потенциал  " }),
+      /* @__PURE__ */ jsx("div", { className: "footer__modal-top", children: /* @__PURE__ */ jsx("p", { className: "footer__modal-text", children: "Мы создаём веб-сайты сервисы, которые превращают ваш бренд в мощную онлайн-платформу, раскрывая его полный потенциал  " }) }),
       /* @__PURE__ */ jsxs("div", { className: "footer__modal-row", children: [
         Icon("phone-footer"),
         /* @__PURE__ */ jsx("a", { href: "tel:+79226152393", children: "+7 911 719-71-92" }),
@@ -2357,22 +2553,145 @@ function Footer() {
     ] })
   ] }) }) }) });
 }
+const HomeSlider = ({ setIsHomeSlader, setIsOverlay }) => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const handleClick = () => {
+    setIsHomeSlader(false);
+    setIsOverlay(false);
+  };
+  return /* @__PURE__ */ jsx("div", { className: "big-cosines-wrapper", children: /* @__PURE__ */ jsxs("div", { className: "big-cosines-slider", children: [
+    /* @__PURE__ */ jsx("div", { className: "slider-close-btn", onClick: handleClick, children: "×" }),
+    /* @__PURE__ */ jsxs(
+      Swiper,
+      {
+        className: "home-swiper2",
+        modules: [
+          FreeMode,
+          Navigation,
+          Thumbs
+        ],
+        loop: true,
+        spaceBetween: 32,
+        slidesPerView: 1,
+        thumbs: { swiper: thumbsSwiper },
+        navigation: {
+          nextEl: ".home-next-button",
+          prevEl: ".home-prev-button"
+        },
+        children: [
+          /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: photo1 }) }),
+          /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: photo2 }) })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs(
+      Swiper,
+      {
+        onSwiper: setThumbsSwiper,
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 2,
+        freeMode: true,
+        watchSlidesProgress: true,
+        modules: [FreeMode, Navigation, Thumbs],
+        className: "home-swiper",
+        navigation: {
+          nextEl: ".home-next-button",
+          prevEl: ".home-prev-button"
+        },
+        children: [
+          /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: photo1 }) }),
+          /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx("img", { src: photo2 }) })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "big-cosiness__navigation", children: [
+      /* @__PURE__ */ jsx("button", { className: "home-prev-button", children: /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: "26",
+          height: "12",
+          viewBox: "0 0 26 12",
+          fill: "none",
+          children: [
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M0.292893 6.70711C-0.0976309 6.31658 -0.0976309 5.68342 0.292893 5.29289L4.29289 1.29289C4.68342 0.902369 5.31658 0.902369 5.70711 1.29289C6.09763 1.68342 6.09763 2.31658 5.70711 2.70711L2.41421 6L5.70711 9.29289C6.09763 9.68342 6.09763 10.3166 5.70711 10.7071C5.31658 11.0976 4.68342 11.0976 4.29289 10.7071L0.292893 6.70711Z",
+                fill: "#232221"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M4 6C4 5.44772 4.44772 5 5 5L25 5C25.5523 5 26 5.44772 26 6C26 6.55229 25.5523 7 25 7L5 7C4.44772 7 4 6.55228 4 6Z",
+                fill: "#232221"
+              }
+            )
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsx("button", { className: "home-next-button", children: /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          width: "26",
+          height: "12",
+          viewBox: "0 0 26 12",
+          fill: "none",
+          children: [
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M25.7071 6.70711C26.0976 6.31658 26.0976 5.68342 25.7071 5.29289L21.7071 1.29289C21.3166 0.902369 20.6834 0.902369 20.2929 1.29289C19.9024 1.68342 19.9024 2.31658 20.2929 2.70711L23.5858 6L20.2929 9.29289C19.9024 9.68342 19.9024 10.3166 20.2929 10.7071C20.6834 11.0976 21.3166 11.0976 21.7071 10.7071L25.7071 6.70711Z",
+                fill: "#F7FDFB"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "path",
+              {
+                fillRule: "evenodd",
+                clipRule: "evenodd",
+                d: "M22 6C22 5.44772 21.5523 5 21 5L1 5C0.447716 5 -1.85108e-08 5.44772 -1.19249e-08 6C-5.33895e-09 6.55229 0.447716 7 1 7L21 7C21.5523 7 22 6.55228 22 6Z",
+                fill: "#F7FDFB"
+              }
+            )
+          ]
+        }
+      ) })
+    ] })
+  ] }) });
+};
 function App() {
   useState(true);
+  const [isNavClicked, setIsNavClicked] = useState(false);
+  const [isCosinesSlider, setCosinesIsSlader] = useState(false);
+  const [isOverlay, setIsOverlay] = useState(false);
+  const [isHomeSlader, setIsHomeSlader] = useState(false);
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Header, {}),
+    isOverlay && /* @__PURE__ */ jsx("div", { className: "overlay" }),
+    /* @__PURE__ */ jsx(Header, { isNavClicked, setIsNavClicked }),
     /* @__PURE__ */ jsx(Promo, {}),
     /* @__PURE__ */ jsx(Booking, {}),
-    /* @__PURE__ */ jsx(Home, {}),
+    /* @__PURE__ */ jsx(Home, { setIsHomeSlader, setIsOverlay }),
     /* @__PURE__ */ jsx(Atmosphere, {}),
-    /* @__PURE__ */ jsx(Cosiness, {}),
-    /* @__PURE__ */ jsx(Prices, {}),
+    /* @__PURE__ */ jsx(Cosiness, { setCosinesIsSlader, setIsOverlay }),
+    /* @__PURE__ */ jsx(Prices, { isNavClicked }),
     /* @__PURE__ */ jsx(Rest, {}),
     /* @__PURE__ */ jsx(Sale, {}),
     /* @__PURE__ */ jsx(Location, {}),
-    /* @__PURE__ */ jsx(Exclusive, {}),
+    /* @__PURE__ */ jsx(Exclusive, { isNavClicked }),
     /* @__PURE__ */ jsx(Questions, {}),
-    /* @__PURE__ */ jsx(Footer, {})
+    /* @__PURE__ */ jsx(Footer, {}),
+    isCosinesSlider && /* @__PURE__ */ jsx(CosinesSlider, { setCosinesIsSlader, setIsOverlay }),
+    isHomeSlader && /* @__PURE__ */ jsx(HomeSlider, { setIsHomeSlader, setIsOverlay })
   ] });
 }
 function render() {
