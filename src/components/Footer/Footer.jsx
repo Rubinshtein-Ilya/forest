@@ -97,7 +97,7 @@ function Footer() {
 										{Icon('mail')}
 								</div>
 								<div className="footer__modal-row">
-									<img className='footer__usov' src="/images/usov-black.png" alt="logo" />
+									<img className='footer__usov' src="/images/usov..svg" alt="logo" />
 									<p className='footer__it-products' href='#'>Создаём и продвигаем <br />ваши it продукты </p>
 								</div>
 							

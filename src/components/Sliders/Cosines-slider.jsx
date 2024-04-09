@@ -39,7 +39,7 @@ const CosinesSlider = ({setCosinesIsSlader, setIsOverlay}) => {
                     Navigation,
                     Thumbs,
                 ]}
-                loop={true}
+                loop={false}
                 spaceBetween={32}
                 slidesPerView={1}
                 thumbs={{ swiper: thumbsSwiper }}
@@ -56,17 +56,17 @@ const CosinesSlider = ({setCosinesIsSlader, setIsOverlay}) => {
                 </Swiper>
                 <Swiper
                     onSwiper={setThumbsSwiper}
-                    loop={true}
+                    loop={false}
                     spaceBetween={10}
                     slidesPerView={4}
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
                     className="big-cosiness-swiper"
-                    navigation={{
-                        nextEl: '.big-cosiness-next-button',
-                        prevEl: '.big-cosiness-prev-button',
-                    }}
+                    // navigation={{
+                    //     nextEl: '.big-cosiness-next-button',
+                    //     prevEl: '.big-cosiness-prev-button',
+                    // }}
                     breakpoints={{
                         1366: {
                             slidesPerView: 6,

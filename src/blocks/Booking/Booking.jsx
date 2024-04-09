@@ -40,6 +40,19 @@ const Booking = () => {
 	const [isChanged, setIsChanged] = useState(false)
 	const [isChangedName, setIsChangedName] = useState(false)
 	const [nameValue, setNameValue] = useState('')
+	const [guests, setGuests] = useState(1)
+
+	const handleIncrement = () => {
+		if (guests < 10) {
+			setGuests(guests + 1);
+		}
+	};
+	
+	const handleDecrement = () => {
+	if (guests > 1) {
+		setGuests(guests - 1);
+	}
+	};
 
 	const handleFocus = () => {
 		setIsFocused(true)
@@ -62,10 +75,11 @@ const Booking = () => {
 				.string()
 				.matches(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Неверно введен номер')
 				.required('Обязательно для ввода'),
-			select: yup.object().shape({
-				value: yup.string().required('Обязательно для ввода'),
-				label: yup.string(),
-			}),
+			// select: yup.object().shape({
+			// 	value: yup.string().required('Обязательно для ввода'),
+			// 	label: yup.string(),
+			// }),
+			select: yup.number().required(),
 		})
 		.required()
 
@@ -119,7 +133,7 @@ const Booking = () => {
 			dates: '',
 			firstName: '',
 			phone: '',
-			select: '', // Добавляем значение по умолчанию для текстовой области
+			select: '1', // Добавляем значение по умолчанию для текстовой области
 		},
 		resolver: yupResolver(schema),
 	})
@@ -171,7 +185,8 @@ const Booking = () => {
 				formattedData.startDay = startFormattedDate
 				formattedData.endDay = endFormattedDate
 			} else if (key === 'select') {
-				formattedData.guests = data.select.value
+				// formattedData.guests = data.select.value
+				formattedData.guests = data[key]
 			} else {
 				formattedData[key] = data[key]
 			}
@@ -312,7 +327,39 @@ const Booking = () => {
 									<img className='error-icon' src={errorImage} alt='error' />
 								)}
 							</div>
-							<Controller
+
+
+							<div className='input__wrapper booking__input-wrapper'>
+								<div className='guests-container'>
+									<span className='guests-span'>Колличество гостей</span>
+									<div className='btns-container'>
+										<div onClick={handleDecrement} className='guests-btn'>-</div>
+										<input
+											{...register('select')}
+											aria-invalid={errors.firstName ? 'true' : 'false'}
+											value={guests}
+											type="text" 
+											className='guests-input'
+											onChange={(event) => {
+												// setIsChangedName(true)
+												setGuests(event.target.value)
+												if (errors.select ) {
+													console.log(errors.select )
+												}
+											}}
+											
+											/>
+										<div onClick={handleIncrement} className='guests-btn'>+</div>
+									</div>
+									
+								</div>
+
+								{errors.select && (
+									<img className='error-icon' src={errorImage} alt='error' />
+								)}
+								
+							</div>
+							{/* <Controller
 								name='select'
 								control={control}
 								render={({ field }) => (
@@ -372,7 +419,7 @@ const Booking = () => {
 										)}
 									</div>
 								)}
-							/>
+							/> */}
 
 							{/* <div className='input__wrapper booking__input-wrapper'>
 								<input

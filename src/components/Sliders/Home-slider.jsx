@@ -41,7 +41,7 @@ const HomeSlider = ({setIsHomeSlader, setIsOverlay}) => {
                     Navigation,
                     Thumbs,
                 ]}
-                loop={true}
+                loop={false}
                 spaceBetween={32}
                 slidesPerView={1}
                 thumbs={{ swiper: thumbsSwiper }}
@@ -59,18 +59,13 @@ const HomeSlider = ({setIsHomeSlader, setIsOverlay}) => {
                 </Swiper>
                 <Swiper
                     onSwiper={setThumbsSwiper}
-                    loop={true}
-                    spaceBetween={10}
+                    loop={false}
+                    spaceBetween={20}
                     slidesPerView={2}
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
                     className="home-swiper"
-                    navigation={{
-                        nextEl: '.home-next-button',
-                        prevEl: '.home-prev-button',
-                    }}
-                   
                 >
                     <SwiperSlide>
                         <img src={photo1} />

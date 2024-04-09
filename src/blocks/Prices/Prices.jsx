@@ -86,7 +86,7 @@ const Prices = (props) => {
 											<br />
 											<br />
 											Бронируйте проживание на 2-е суток с пятницы по
-											воскресенье, всего за <span>45 000 <span className='ruble'>₽</span></span>.
+											воскресенье, всего<br className='prices-break'/> за <span>45 000 <span className='ruble'>₽</span></span>.
 										</p>
 									</div>
 								</div>

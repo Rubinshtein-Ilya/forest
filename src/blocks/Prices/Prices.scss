@@ -1,4 +1,5 @@
 .prices {
+
 	margin-top: 32px;
 	// position: relative;
 	&__prices {
@@ -489,6 +490,10 @@
 	bottom: -15% !important;
     right: 6% !important;
     z-index: 5;
+}
+
+.prices-break {
+	display: none;
 }
 
 @media (max-width: 1386px) {
@@ -1104,6 +1109,11 @@
 				text-align: left;
 			}
 		}
+	}
+}
+@media (max-width: 410px) {
+	.prices-break {
+		display: block;
 	}
 }
 @media (max-width: 385px) {
